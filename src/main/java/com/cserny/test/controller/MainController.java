@@ -21,6 +21,7 @@ import java.util.Date;
 public class MainController
 {
     protected MainService mainService;
+    protected int localValue = 5;
 
     @Autowired
     public void setMainService(MainService mainService)
@@ -33,6 +34,7 @@ public class MainController
     {
         Integer value = mainService.getValue();
         model.addAttribute("value", value);
+        model.addAttribute("localValue", localValue);
 
         return "main";
     }
