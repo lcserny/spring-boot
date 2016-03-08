@@ -21,9 +21,7 @@ import javax.sql.DataSource;
  */
 
 @Configuration
-@EnableAutoConfiguration
 @EnableJpaRepositories
-@ComponentScan
 public class AppConfig
 {
     @Bean

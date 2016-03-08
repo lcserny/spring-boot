@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created by user on 08.03.2016.
@@ -41,7 +42,18 @@ public class UserRepository
     {
         Query query = entityManager.createNamedQuery(User.USER_FIND_BY_NAME);
         query.setParameter(1, name);
+        query.setMaxResults(1);
 
         return (User) query.getSingleResult();
+    }
+
+    public String getAllUserNames()
+    {
+        StringBuilder builder = new StringBuilder();
+        for (User user : entityManager.createNamedQuery(User.USER_FIND_ALL, User.class).getResultList()) {
+            builder.append(user.getName()).append(" --- ");
+        }
+
+        return builder.toString().trim();
     }
 }

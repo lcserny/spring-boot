@@ -28,4 +28,9 @@ public class MainService
     {
         repository.newUser(name);
     }
+
+    public String getAllEntityNames()
+    {
+        return repository.getAllUserNames();
+    }
 }

@@ -61,6 +61,6 @@ public class MainController
     public String getBodyVersion()
     {
         mainService.createNewUserWithName("Leo");
-        return "Some HTML here";
+        return "Added new Entity : Leo";
     }
 }

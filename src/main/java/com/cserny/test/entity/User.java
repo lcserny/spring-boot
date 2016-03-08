@@ -7,11 +7,15 @@ import javax.persistence.*;
  */
 
 @Entity
-@NamedQuery(name = User.USER_FIND_BY_NAME, query = "SELECT u FROM User u WHERE u.name = ?1")
+@NamedQueries({
+    @NamedQuery(name = User.USER_FIND_ALL, query = "SELECT u FROM User u"),
+    @NamedQuery(name = User.USER_FIND_BY_NAME, query = "SELECT u FROM User u WHERE u.name = ?1")
+})
 @Table(name = "User")
 public class User
 {
     public static final String USER_FIND_BY_NAME = "User.findByName";
+    public static final String USER_FIND_ALL = "User.findAll";
 
     @Id
     @GeneratedValue
