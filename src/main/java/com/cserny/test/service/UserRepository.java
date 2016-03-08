@@ -25,10 +25,7 @@ public class UserRepository
     EntityManager entityManager;
 
     @PostConstruct
-    public void init()
-    {
-
-    }
+    public void init() { }
 
     public void newUser(String name)
     {
