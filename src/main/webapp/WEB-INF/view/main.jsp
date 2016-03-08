@@ -9,5 +9,3 @@
     Local value from services is :${localValue}
 </body>
 </html>
-
-

@@ -52,13 +52,15 @@ public class MainController
     @ResponseBody
     public String getRequestVersion(HttpServletRequest request)
     {
-        return request.getRequestURI() + " -------- " + request.getRequestURL();
+        return mainService.getUserName("Leo");
+//        return request.getRequestURI() + " -------- " + request.getRequestURL();
     }
 
     @RequestMapping("/")
     @ResponseBody
     public String getBodyVersion()
     {
+        mainService.createNewUserWithName("Leo");
         return "Some HTML here";
     }
 }
