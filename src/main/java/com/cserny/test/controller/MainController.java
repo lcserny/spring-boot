@@ -52,8 +52,21 @@ public class MainController
     @ResponseBody
     public String getRequestVersion(HttpServletRequest request)
     {
+        return request.getRequestURI() + " -------- " + request.getRequestURL();
+    }
+
+    @RequestMapping("/get-leo-user")
+    @ResponseBody
+    public String getUserNameVersion()
+    {
         return mainService.getUserName("Leo");
-//        return request.getRequestURI() + " -------- " + request.getRequestURL();
+    }
+
+    @ResponseBody
+    @RequestMapping("/all-usernames")
+    public String getAllUserNamesVersion()
+    {
+        return mainService.getAllEntityNames();
     }
 
     @RequestMapping("/")
