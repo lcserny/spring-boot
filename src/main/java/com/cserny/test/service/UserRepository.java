@@ -31,6 +31,7 @@ public class UserRepository
     {
         User user = new User();
         user.setName(name);
+        user.setSurname(name);
 
         entityManager.persist(user);
     }

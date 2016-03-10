@@ -13,6 +13,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 
@@ -22,7 +27,8 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories
-public class AppConfig
+@EnableWebMvc
+public class AppConfig extends WebMvcConfigurerAdapter
 {
     @Bean
     public DataSource dataSource()
@@ -53,5 +59,21 @@ public class AppConfig
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return txManager;
+    }
+
+    @Bean
+    public ViewResolver viewResolver()
+    {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/view/");
+        resolver.setSuffix(".jsp");
+
+        return resolver;
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
+    {
+        configurer.enable();
     }
 }
