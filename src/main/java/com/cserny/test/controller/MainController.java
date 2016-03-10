@@ -87,7 +87,7 @@ public class MainController
     {
         String text = "this is some text";
 
-        long startTime = System.nanoTime();
+        double startTime = System.nanoTime();
         String[] words = text.split(" ");
         StringBuilder builder = new StringBuilder();
         for (String word : words) {
@@ -95,8 +95,8 @@ public class MainController
             builder.append(newWord).append(" ");
         }
         String result = builder.toString().trim();
-        long duration = System.nanoTime() - startTime;
-        System.out.println(duration);
+        double endTime = System.nanoTime() - startTime;
+        System.out.println((endTime / 1000));
 
         return result;
     }
