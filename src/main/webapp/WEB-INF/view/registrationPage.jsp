@@ -16,12 +16,12 @@
             <td><form:errors path="name"/></td>
         </tr>
         <tr>
-            <td><form:label path="surname">Name</form:label></td>
+            <td><form:label path="surname">Surname</form:label></td>
             <td><form:input path="surname" /></td>
             <td><form:errors path="surname"/></td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 <input type="submit" value="Submit"/>
             </td>
         </tr>

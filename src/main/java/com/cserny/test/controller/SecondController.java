@@ -45,7 +45,7 @@ public class SecondController
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String submitRegistration(@Valid @ModelAttribute(value = "user")User user,
+    public String submitRegistration(@Valid @ModelAttribute(value = "user") User user,
                                      BindingResult result,
                                      Model model)
     {
@@ -57,6 +57,4 @@ public class SecondController
 
         return "registrationPage";
     }
-
-
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -27,8 +28,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories
-@EnableWebMvc
-public class AppConfig extends WebMvcConfigurerAdapter
+public class AppConfig
 {
     @Bean
     public DataSource dataSource()
@@ -69,11 +69,5 @@ public class AppConfig extends WebMvcConfigurerAdapter
         resolver.setSuffix(".jsp");
 
         return resolver;
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
-    {
-        configurer.enable();
     }
 }
