@@ -4,6 +4,7 @@ import com.cserny.test.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -48,10 +49,10 @@ public class UserRepository
     public String getAllUserNames()
     {
         StringBuilder builder = new StringBuilder();
+        String str = " --- ";
         for (User user : entityManager.createNamedQuery(User.USER_FIND_ALL, User.class).getResultList()) {
-            builder.append(user.getName()).append(" --- ");
+            builder.append(user.getName()).append(str);
         }
-
-        return builder.toString().trim();
+        return builder.toString().replaceAll(str + "$", "");
     }
 }
