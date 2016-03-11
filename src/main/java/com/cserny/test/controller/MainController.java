@@ -1,10 +1,12 @@
 package com.cserny.test.controller;
 
 import com.cserny.test.entity.User;
+import com.cserny.test.model.Incrementor;
 import com.cserny.test.model.JsonResponse;
 import com.cserny.test.service.MainService;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ import java.util.List;
 @RequestMapping("/home")
 public class MainController
 {
+    @Autowired
+    protected Incrementor incrementor;
+
     protected MainService mainService;
     protected int localValue = 5;
 
@@ -50,11 +55,13 @@ public class MainController
     }
 
     @RequestMapping("/jsp")
-    public ModelAndView getJspSecondVersion()
+    public ModelAndView getJspSecondVersion(HttpServletRequest request)
     {
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("value", mainService.getValue());
-        modelMap.addAttribute("localValue", localValue);
+        modelMap.addAttribute("localValue", incrementor.getValue());
+
+        System.out.println(request.getSession().getId());
 
         return new ModelAndView("main", modelMap);
     }
