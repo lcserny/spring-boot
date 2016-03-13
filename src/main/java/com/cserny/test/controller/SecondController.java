@@ -1,6 +1,7 @@
 package com.cserny.test.controller;
 
 import com.cserny.test.entity.User;
+import com.cserny.test.model.CsvParser;
 import com.cserny.test.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by user on 09.03.2016.
@@ -56,5 +59,20 @@ public class SecondController
         }
 
         return "registrationPage";
+    }
+
+    @RequestMapping("/parse-csv")
+    @ResponseBody
+    public String displayParsedCsv()
+    {
+        CsvParser parser = new CsvParser();
+        StringBuilder builder = new StringBuilder();
+        List<String> parsedCsv = parser.parseCsv();
+
+        for (String line : parsedCsv) {
+            builder.append(line).append("<br>");
+        }
+
+        return builder.toString();
     }
 }
