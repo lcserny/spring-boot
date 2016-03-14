@@ -50,7 +50,7 @@ public class CsvParser
         if (csv != null) {
             String[] splitData = csv.split("\\s*" + DELIMITER + "\\s*");
             for (String column : splitData) {
-                if (!(column == null) || !(column.length() == 0)) {
+                if (column != null && column.length() != 0) {
                     csvResult.add(column.trim());
                 }
             }
