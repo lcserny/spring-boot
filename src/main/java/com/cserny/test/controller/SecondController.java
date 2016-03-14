@@ -1,11 +1,14 @@
 package com.cserny.test.controller;
 
+import com.cserny.test.entity.Product;
 import com.cserny.test.entity.User;
 import com.cserny.test.model.Box;
 import com.cserny.test.model.CsvParser;
 import com.cserny.test.model.GenericTester;
 import com.cserny.test.model.MaximumTest;
 import com.cserny.test.service.MainService;
+import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,9 @@ public class SecondController
 {
     @Autowired
     private MainService service;
+
+    @Autowired
+    private FlatFileItemReader<Product> reader;
 
     @RequestMapping("/aaa")
     public String newJspPage()
@@ -111,5 +117,27 @@ public class SecondController
         stringBox.setVar("Hello world");
 
         return String.valueOf(integerBox.getVar()) + "<br>" + stringBox.getVar() + "<br>";
+    }
+
+    @RequestMapping("/get-reader")
+    @ResponseBody
+    public String getCsvReader()
+    {
+        StringBuilder builder = new StringBuilder();
+        Product product = null;
+        try {
+            reader.open(new ExecutionContext());
+            while ((product = reader.read()) != null) {
+                builder.append(product.getId()).append(", ");
+                builder.append(product.getName()).append(", ");
+                builder.append(product.getDescription()).append(", ");
+                builder.append(product.getQuantity());
+                builder.append("<br>");
+            }
+            reader.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return builder.toString();
     }
 }
