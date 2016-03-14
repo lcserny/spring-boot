@@ -1,6 +1,7 @@
 package com.cserny.test.controller;
 
 import com.cserny.test.entity.User;
+import com.cserny.test.model.Box;
 import com.cserny.test.model.CsvParser;
 import com.cserny.test.model.GenericTester;
 import com.cserny.test.model.MaximumTest;
@@ -97,5 +98,22 @@ public class SecondController
     {
         MaximumTest test = new MaximumTest();
         return test.getComparedString();
+    }
+
+    @RequestMapping("/generic-class")
+    @ResponseBody
+    public String getGenericClassText()
+    {
+        Box<Integer> integerBox = new Box<Integer>();
+        Box<String> stringBox = new Box<String>();
+
+        integerBox.setVar(10);
+        stringBox.setVar("Hello world");
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(integerBox.getVar()).append("<br>");
+        builder.append(stringBox.getVar()).append("<br>");
+
+        return builder.toString();
     }
 }
