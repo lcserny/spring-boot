@@ -74,17 +74,17 @@ public class AppConfig
     @Bean
     public FlatFileItemReader flatFileItemReader()
     {
-        FlatFileItemReader reader = new FlatFileItemReader();
+        FlatFileItemReader<Product> reader = new FlatFileItemReader<>();
 
         FileSystemResource resource = new FileSystemResource("src/main/resources/products.csv");
         reader.setResource(resource);
         reader.setLinesToSkip(1);
 
-        DefaultLineMapper mapper = new DefaultLineMapper<>();
+        DefaultLineMapper<Product> mapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(";");
-        lineTokenizer.setNames(new String[] {"id", "name", "description", "quantity"});
+        lineTokenizer.setNames(new String[]{"id", "name", "description", "quantity"});
         mapper.setLineTokenizer(lineTokenizer);
 
         ProductFieldSetMapper fieldSetMapper = new ProductFieldSetMapper();
