@@ -104,8 +104,8 @@ public class SecondController
     @ResponseBody
     public String getGenericClassText()
     {
-        Box<Integer> integerBox = new Box<Integer>();
-        Box<String> stringBox = new Box<String>();
+        Box<Integer> integerBox = new Box<>();
+        Box<String> stringBox = new Box<>();
 
         integerBox.setVar(10);
         stringBox.setVar("Hello world");
