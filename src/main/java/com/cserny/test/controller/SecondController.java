@@ -2,6 +2,8 @@ package com.cserny.test.controller;
 
 import com.cserny.test.entity.User;
 import com.cserny.test.model.CsvParser;
+import com.cserny.test.model.GenericTester;
+import com.cserny.test.model.MaximumTest;
 import com.cserny.test.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -74,5 +74,28 @@ public class SecondController
         }
 
         return builder.toString();
+    }
+
+    @RequestMapping("/generic-test")
+    @ResponseBody
+    public String displayGenerics()
+    {
+        GenericTester tester = new GenericTester();
+        StringBuilder builder = new StringBuilder();
+        List<String> strings = tester.getGenericStrings();
+
+        for (String string : strings) {
+            builder.append(string);
+        }
+
+        return builder.toString();
+    }
+
+    @RequestMapping("/compare")
+    @ResponseBody
+    public String getComparedString()
+    {
+        MaximumTest test = new MaximumTest();
+        return test.getComparedString();
     }
 }
