@@ -49,9 +49,9 @@ public class CsvParser
         List<String> csvResult = new ArrayList<String>();
         if (csv != null) {
             String[] splitData = csv.split("\\s*" + DELIMITER + "\\s*");
-            for (int i = 0; i < splitData.length; i++) {
-                if (!(splitData[i] == null) || !(splitData[i].length() == 0)) {
-                    csvResult.add(splitData[i].trim());
+            for (String column : splitData) {
+                if (!(column == null) || !(column.length() == 0)) {
+                    csvResult.add(column.trim());
                 }
             }
         }
