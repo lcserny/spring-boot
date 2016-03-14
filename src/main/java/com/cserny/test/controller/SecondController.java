@@ -110,10 +110,6 @@ public class SecondController
         integerBox.setVar(10);
         stringBox.setVar("Hello world");
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(integerBox.getVar()).append("<br>");
-        builder.append(stringBox.getVar()).append("<br>");
-
-        return builder.toString();
+        return String.valueOf(integerBox.getVar()) + "<br>" + stringBox.getVar() + "<br>";
     }
 }
