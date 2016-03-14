@@ -24,7 +24,7 @@ public class CsvParser
 
             while ((line = reader.readLine()) != null) {
                 String rawLine = "Raw CSV data: " + line;
-                String parsedLine = "Converted ArrayList data: " + convertCsvToArrayList(line) + "<br>";
+                String parsedLine = "Converted List data: " + convertCsvLineToList(line) + "<br>";
 
                 csvArray.add(rawLine);
                 csvArray.add(parsedLine);
@@ -44,7 +44,7 @@ public class CsvParser
         return csvArray;
     }
 
-    public static List<String> convertCsvToArrayList(String csv)
+    public static List<String> convertCsvLineToList(String csv)
     {
         List<String> csvResult = new ArrayList<String>();
         if (csv != null) {
