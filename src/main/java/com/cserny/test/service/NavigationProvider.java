@@ -4,7 +4,6 @@ import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,34 +18,28 @@ import java.util.List;
 @Component
 public class NavigationProvider
 {
-    public static final String LABEL = "label";
-    public static final String ACTION = "action";
-    public static final String ITEM = "item";
-    public static final String ITEMS = "items";
+    private NavigationParser parser;
+
+    public void setParser(NavigationParser parser)
+    {
+        this.parser = parser;
+    }
+
+    public NavigationParser getParser()
+    {
+        return parser;
+    }
 
     public List<NavigationItem> getNavigationItems()
     {
-        ResourceLoader resourceLoader = new FileSystemResourceLoader();
-        Resource resource = resourceLoader.getResource("classpath:admin.xml");
-        File xmlFile = null;
-        try {
-            xmlFile = resource.getFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return getParser().getNavigationItems();
+    }
 
-        NavigationParser parser = new NavigationParser();
-        List<NavigationItem> itemList = new ArrayList<>();
-        try {
-            itemList = parser.parseXml(new FileInputStream(xmlFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public List<NavigationItem> getNavigationItemsFromXml(String xmlFile)
+    {
+        NavigationParser parser = new NavigationXmlParser(xmlFile);
+        setParser(parser);
 
-        for (NavigationItem item : itemList) {
-            System.out.println(item);
-        }
-
-        return itemList;
+        return getNavigationItems();
     }
 }

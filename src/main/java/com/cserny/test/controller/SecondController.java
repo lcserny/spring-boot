@@ -67,7 +67,7 @@ public class SecondController
     @RequestMapping("/parse-xml")
     public ResponseEntity<String> getParsedXml()
     {
-        List<NavigationItem> itemList = navigationProvider.getNavigationItems();
+        List<NavigationItem> itemList = navigationProvider.getNavigationItemsFromXml("admin.xml");
 
         return new ResponseEntity<String>("XML Parsed", HttpStatus.I_AM_A_TEAPOT);
     }
