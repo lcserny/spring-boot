@@ -79,7 +79,7 @@ public class SecondController
     {
         for (NavigationItem item : list) {
             System.out.println(indent + item);
-            if (item.getSubItems().size() != 0) {
+            if (item.getSubItems() != null && item.getSubItems().size() != 0) {
                 String newIndent = indent + this.indent;
                 printItems(item.getSubItems(), newIndent);
             }

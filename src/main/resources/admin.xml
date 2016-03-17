@@ -11,6 +11,12 @@
                     <item>
                         <label>Inside home</label>
                         <action>/admin/index/inner</action>
+                        <items>
+                            <item>
+                                <label>Deep inside</label>
+                                <action>/admin/index/inner/deep</action>
+                            </item>
+                        </items>
                     </item>
                     <item>
                         <label>Inside another home</label>

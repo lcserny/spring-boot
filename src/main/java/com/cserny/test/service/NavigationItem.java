@@ -10,8 +10,8 @@ public class NavigationItem
 {
     private String label;
     private String action;
-    private NavigationItem parentItem;
-    private List<NavigationItem> subItems = new ArrayList<>();
+    private boolean hasParent;
+    private List<NavigationItem> subItems;
 
     public String getLabel()
     {
@@ -33,14 +33,14 @@ public class NavigationItem
         this.action = action;
     }
 
-    public NavigationItem getParentItem()
+    public boolean isHasParent()
     {
-        return parentItem;
+        return hasParent;
     }
 
-    public void setParentItem(NavigationItem parentItem)
+    public void setHasParent(boolean hasParent)
     {
-        this.parentItem = parentItem;
+        this.hasParent = hasParent;
     }
 
     public List<NavigationItem> getSubItems()
@@ -56,6 +56,6 @@ public class NavigationItem
     @Override
     public String toString()
     {
-        return label + " - " + action + "\r\n";
+        return label + " - " + action;
     }
 }

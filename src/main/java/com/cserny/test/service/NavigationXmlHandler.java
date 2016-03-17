@@ -17,8 +17,6 @@ public class NavigationXmlHandler extends DefaultHandler
     private Stack<String> elementStack = new Stack<>();
     private Stack<NavigationItem> objectStack = new Stack<>();
 
-    private NavigationItem parentItem;
-
     public List<NavigationItem> getNavigationItems()
     {
         return navigationItems;
@@ -31,16 +29,20 @@ public class NavigationXmlHandler extends DefaultHandler
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = new NavigationItem();
-            if (parentItem != null) {
-                item.setParentItem(parentItem);
-                parentItem.getSubItems().add(item);
+            NavigationItem prevItem = null;
+            if (!objectStack.empty()) {
+                prevItem = currentObject();
+            }
+            if (prevItem != null && prevItem.getSubItems() != null) {
+                item.setHasParent(true);
+                prevItem.getSubItems().add(item);
             }
             objectStack.push(item);
         }
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEMS)) {
             NavigationItem item = objectStack.peek();
-            parentItem = item;
+            item.setSubItems(new ArrayList<>());
         }
     }
 
@@ -66,13 +68,9 @@ public class NavigationXmlHandler extends DefaultHandler
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = objectStack.pop();
-            if (item.getParentItem() == null) {
+            if (!item.isHasParent()) {
                 navigationItems.add(item);
             }
-        }
-
-        if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEMS)) {
-            parentItem = null;
         }
     }
 
