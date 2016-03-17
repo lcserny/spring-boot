@@ -13,11 +13,16 @@ import java.util.Stack;
  */
 public class NavigationXmlHandler extends DefaultHandler
 {
-    private List<NavigationItem> items = new ArrayList<>();
+    private List<NavigationItem> navigationItems = new ArrayList<>();
     private Stack<String> elementStack = new Stack<>();
     private Stack<NavigationItem> objectStack = new Stack<>();
 
     private NavigationItem parentItem;
+
+    public List<NavigationItem> getNavigationItems()
+    {
+        return navigationItems;
+    }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -62,7 +67,7 @@ public class NavigationXmlHandler extends DefaultHandler
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = objectStack.pop();
             if (item.getParentItem() == null) {
-                items.add(item);
+                navigationItems.add(item);
             }
         }
 
@@ -79,10 +84,5 @@ public class NavigationXmlHandler extends DefaultHandler
     private NavigationItem currentObject()
     {
         return objectStack.peek();
-    }
-
-    public List<NavigationItem> getItems()
-    {
-        return items;
     }
 }

@@ -42,7 +42,7 @@ public class NavigationXmlParser implements NavigationParser
             InputSource source = new InputSource(new FileInputStream(getXmlFile()));
             reader.parse(source);
 
-            itemList = handler.getItems();
+            itemList = handler.getNavigationItems();
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
