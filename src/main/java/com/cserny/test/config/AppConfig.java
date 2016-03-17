@@ -1,10 +1,14 @@
 package com.cserny.test.config;
 
-import com.cserny.test.entity.User;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import com.cserny.test.entity.Product;
+import com.cserny.test.model.ProductFieldSetMapper;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -15,10 +19,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
@@ -71,5 +71,28 @@ public class AppConfig
         resolver.setSuffix(".jsp");
 
         return resolver;
+    }
+
+    @Bean
+    public FlatFileItemReader flatFileItemReader()
+    {
+        FlatFileItemReader<Product> reader = new FlatFileItemReader<>();
+
+        FileSystemResource resource = new FileSystemResource("src/main/resources/products.csv");
+        reader.setResource(resource);
+        reader.setLinesToSkip(1);
+
+        DefaultLineMapper<Product> mapper = new DefaultLineMapper<>();
+
+        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+        lineTokenizer.setDelimiter(";");
+        lineTokenizer.setNames(new String[]{"id", "name", "description", "quantity"});
+        mapper.setLineTokenizer(lineTokenizer);
+
+        ProductFieldSetMapper fieldSetMapper = new ProductFieldSetMapper();
+        mapper.setFieldSetMapper(fieldSetMapper);
+        reader.setLineMapper(mapper);
+
+        return reader;
     }
 }
