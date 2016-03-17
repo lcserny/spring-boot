@@ -39,7 +39,7 @@ public class NavigationXmlParser implements NavigationParser
             NavigationXmlHandler handler = new NavigationXmlHandler();
             XMLReader reader = XMLReaderFactory.createXMLReader();
             reader.setContentHandler(handler);
-            InputSource source = new InputSource(new FileInputStream(initXmlFile()));
+            InputSource source = new InputSource(new FileInputStream(getXmlFile()));
             reader.parse(source);
 
             itemList = handler.getItems();
@@ -50,7 +50,7 @@ public class NavigationXmlParser implements NavigationParser
         return itemList;
     }
 
-    private File initXmlFile() throws IOException
+    private File getXmlFile() throws IOException
     {
         ResourceLoader resourceLoader = new FileSystemResourceLoader();
         Resource resource = resourceLoader.getResource(String.format(XML_PATH, xmlFile));
