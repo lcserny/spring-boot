@@ -1,5 +1,6 @@
 package com.cserny.test.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,21 +8,10 @@ import java.util.List;
  */
 public class NavigationItem
 {
-    private int id;
-    private int parentId;
     private String label;
     private String action;
-    private List<NavigationItem> subItems;
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+    private NavigationItem parentItem;
+    private List<NavigationItem> subItems = new ArrayList<>();
 
     public String getLabel()
     {
@@ -43,14 +33,14 @@ public class NavigationItem
         this.action = action;
     }
 
-    public int getParentId()
+    public NavigationItem getParentItem()
     {
-        return parentId;
+        return parentItem;
     }
 
-    public void setParentId(int parentId)
+    public void setParentItem(NavigationItem parentItem)
     {
-        this.parentId = parentId;
+        this.parentItem = parentItem;
     }
 
     public List<NavigationItem> getSubItems()
@@ -66,6 +56,6 @@ public class NavigationItem
     @Override
     public String toString()
     {
-        return id + " - " + label + " - " + action + " - " + parentId;
+        return label + " - " + action + "\r\n";
     }
 }

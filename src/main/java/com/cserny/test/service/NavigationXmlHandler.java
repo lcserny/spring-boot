@@ -17,13 +17,7 @@ public class NavigationXmlHandler extends DefaultHandler
     private Stack<String> elementStack = new Stack<>();
     private Stack<NavigationItem> objectStack = new Stack<>();
 
-    private Integer parentId;
-
-    @Override
-    public void endDocument() throws SAXException
-    {
-        System.out.println("Ended parsing of document");
-    }
+    private NavigationItem parentItem;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -32,18 +26,16 @@ public class NavigationXmlHandler extends DefaultHandler
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = new NavigationItem();
-            if (attributes.getLength() == 1) {
-                item.setId(Integer.parseInt(attributes.getValue(NavigationXmlParser.NODE_ID)));
-            }
-            if (parentId != null) {
-                item.setParentId(parentId);
+            if (parentItem != null) {
+                item.setParentItem(parentItem);
+                parentItem.getSubItems().add(item);
             }
             objectStack.push(item);
         }
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEMS)) {
             NavigationItem item = objectStack.peek();
-            parentId = item.getId();
+            parentItem = item;
         }
     }
 
@@ -69,12 +61,13 @@ public class NavigationXmlHandler extends DefaultHandler
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = objectStack.pop();
-            System.out.println(item);
-            items.add(item);
+            if (item.getParentItem() == null) {
+                items.add(item);
+            }
         }
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEMS)) {
-            parentId = null;
+            parentItem = null;
         }
     }
 

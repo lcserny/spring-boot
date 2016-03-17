@@ -26,6 +26,8 @@ import java.util.List;
 @RequestMapping("/second")
 public class SecondController
 {
+    private String indent = "  ";
+
     @Autowired
     private MainService service;
 
@@ -68,7 +70,19 @@ public class SecondController
     public ResponseEntity<String> getParsedXml()
     {
         List<NavigationItem> itemList = navigationProvider.getNavigationItemsFromXml("admin.xml");
+        printItems(itemList, indent);
 
         return new ResponseEntity<String>("XML Parsed", HttpStatus.I_AM_A_TEAPOT);
+    }
+
+    private void printItems(List<NavigationItem> list, String indent)
+    {
+        for (NavigationItem item : list) {
+            System.out.println(indent + item);
+            if (item.getSubItems().size() != 0) {
+                String newIndent = indent + this.indent;
+                printItems(item.getSubItems(), newIndent);
+            }
+        }
     }
 }
