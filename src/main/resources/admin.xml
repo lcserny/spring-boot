@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <item id="1">
+        <label>Home</label>
+        <action>/admin/index</action>
+        <items>
+            <item id="2">
+                <label>Inner Home</label>
+                <action>/admin/index</action>
+                <items>
+                    <item id="3">
+                        <label>Inside home</label>
+                        <action>/admin/index/inner</action>
+                    </item>
+                </items>
+            </item>
+        </items>
+    </item>
+
+    <item id="4">
+        <label>Product</label>
+        <action>/admin/product</action>
+        <items>
+            <item id="5">
+                <label>All Products</label>
+                <action>/admin/product</action>
+            </item>
+            <item id="6">
+                <label>Import Products</label>
+                <action>/admin/import-products</action>
+            </item>
+        </items>
+    </item>
+</menu>

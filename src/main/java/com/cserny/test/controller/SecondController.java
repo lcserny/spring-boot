@@ -2,6 +2,8 @@ package com.cserny.test.controller;
 
 import com.cserny.test.entity.User;
 import com.cserny.test.service.MainService;
+import com.cserny.test.service.NavigationItem;
+import com.cserny.test.service.NavigationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by user on 09.03.2016.
@@ -25,6 +28,9 @@ public class SecondController
 {
     @Autowired
     private MainService service;
+
+    @Autowired
+    private NavigationProvider navigationProvider;
 
     @RequestMapping("/aaa")
     public String newJspPage()
@@ -56,5 +62,13 @@ public class SecondController
         }
 
         return "registrationPage";
+    }
+
+    @RequestMapping("/parse-xml")
+    public ResponseEntity<String> getParsedXml()
+    {
+        List<NavigationItem> itemList = navigationProvider.getNavigationItems();
+
+        return new ResponseEntity<String>("XML Parsed", HttpStatus.I_AM_A_TEAPOT);
     }
 }
