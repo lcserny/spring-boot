@@ -34,7 +34,7 @@ public class NavigationXmlHandler extends DefaultHandler
                 prevItem = currentObject();
             }
             if (prevItem != null && prevItem.getSubItems() != null) {
-                item.setHasParent(true);
+                item.setChild(true);
                 prevItem.getSubItems().add(item);
             }
             objectStack.push(item);
@@ -68,7 +68,7 @@ public class NavigationXmlHandler extends DefaultHandler
 
         if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
             NavigationItem item = objectStack.pop();
-            if (!item.isHasParent()) {
+            if (!item.isChild()) {
                 navigationItems.add(item);
             }
         }

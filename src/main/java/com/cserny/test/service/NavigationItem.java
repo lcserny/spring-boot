@@ -10,7 +10,7 @@ public class NavigationItem
 {
     private String label;
     private String action;
-    private boolean hasParent;
+    private boolean child;
     private List<NavigationItem> subItems;
 
     public String getLabel()
@@ -33,14 +33,14 @@ public class NavigationItem
         this.action = action;
     }
 
-    public boolean isHasParent()
+    public boolean isChild()
     {
-        return hasParent;
+        return child;
     }
 
-    public void setHasParent(boolean hasParent)
+    public void setChild(boolean child)
     {
-        this.hasParent = hasParent;
+        this.child = child;
     }
 
     public List<NavigationItem> getSubItems()
