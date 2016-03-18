@@ -17,12 +17,6 @@ import java.util.List;
  */
 public class NavigationXmlParser implements NavigationParser
 {
-    public static final String NODE_ID = "id";
-    public static final String NODE_LABEL = "label";
-    public static final String NODE_ACTION = "action";
-    public static final String NODE_ITEM = "item";
-    public static final String NODE_ITEMS = "items";
-
     public static final String XML_PATH = "classpath:%s";
 
     private String xmlFile;

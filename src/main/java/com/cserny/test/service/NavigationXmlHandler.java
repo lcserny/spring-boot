@@ -13,6 +13,12 @@ import java.util.Stack;
  */
 public class NavigationXmlHandler extends DefaultHandler
 {
+    public static final String NODE_ID = "id";
+    public static final String NODE_LABEL = "label";
+    public static final String NODE_ACTION = "action";
+    public static final String NODE_ITEM = "item";
+    public static final String NODE_ITEMS = "items";
+
     private List<NavigationItem> navigationItems = new ArrayList<>();
     private Stack<String> elementStack = new Stack<>();
     private Stack<NavigationItem> objectStack = new Stack<>();
@@ -27,20 +33,19 @@ public class NavigationXmlHandler extends DefaultHandler
     {
         elementStack.push(qName);
 
-        if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
+        if (qName.equalsIgnoreCase(NODE_ITEM)) {
             NavigationItem item = new NavigationItem();
-            NavigationItem prevItem = null;
             if (!objectStack.empty()) {
-                prevItem = currentObject();
-            }
-            if (prevItem != null && prevItem.getSubItems() != null) {
-                item.setChild(true);
-                prevItem.getSubItems().add(item);
+                NavigationItem prevItem = currentObject();
+                if (prevItem != null && prevItem.getSubItems() != null) {
+                    item.setChild(true);
+                    prevItem.getSubItems().add(item);
+                }
             }
             objectStack.push(item);
         }
 
-        if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEMS)) {
+        if (qName.equalsIgnoreCase(NODE_ITEMS)) {
             NavigationItem item = objectStack.peek();
             item.setSubItems(new ArrayList<>());
         }
@@ -50,12 +55,12 @@ public class NavigationXmlHandler extends DefaultHandler
     public void characters(char[] ch, int start, int length) throws SAXException
     {
         String value = new String(ch, start, length).trim();
-        if (currentElement().equalsIgnoreCase(NavigationXmlParser.NODE_LABEL)) {
+        if (currentElement().equalsIgnoreCase(NODE_LABEL)) {
             NavigationItem item = objectStack.peek();
             item.setLabel(value);
         }
 
-        if (currentElement().equalsIgnoreCase(NavigationXmlParser.NODE_ACTION)) {
+        if (currentElement().equalsIgnoreCase(NODE_ACTION)) {
             NavigationItem item = objectStack.peek();
             item.setAction(value);
         }
@@ -66,7 +71,7 @@ public class NavigationXmlHandler extends DefaultHandler
     {
         elementStack.pop();
 
-        if (qName.equalsIgnoreCase(NavigationXmlParser.NODE_ITEM)) {
+        if (qName.equalsIgnoreCase(NODE_ITEM)) {
             NavigationItem item = objectStack.pop();
             if (!item.isChild()) {
                 navigationItems.add(item);
