@@ -13,10 +13,9 @@ import java.util.Stack;
  */
 public class NavigationXmlHandler extends DefaultHandler
 {
-    public static final String NODE_ID = "id";
+    public static final String NODE_ITEM = "item";
     public static final String NODE_LABEL = "label";
     public static final String NODE_ACTION = "action";
-    public static final String NODE_ITEM = "item";
     public static final String NODE_ITEMS = "items";
 
     private List<NavigationItem> navigationItems = new ArrayList<>();
