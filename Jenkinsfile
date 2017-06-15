@@ -4,7 +4,7 @@ node {
   checkout scm
   env.PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"
   stage('Package') {
-      sh 'mvn clean package'
+      sh 'mvnw clean package'
     
   }
   stage('Create Docker Image') {
