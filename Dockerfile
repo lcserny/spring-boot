@@ -13,5 +13,5 @@ ENV JAVA_OPTS="-Xms1G"
 
 EXPOSE 8080
 
-CMD java $JAVA_OPTS -jar spring-boot-0.0.1-SNAPSHOT.jar
+CMD exec java $JAVA_OPTS -jar spring-boot-0.0.1-SNAPSHOT.jar
 

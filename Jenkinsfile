@@ -9,7 +9,7 @@ node {
   }
   stage('Create Docker Image') {
     docker.withRegistry('http://sniffer.netex.ro:5000') {
-        def newApp = docker.build("docker-jenkins-pipeline:${env.BUILD_NUMBER}")
+        def newApp = docker.build("docker-jenkins-pipeline:${env.BUILD_TAG}")
 	newApp.push()
     }
   }
