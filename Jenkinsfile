@@ -4,7 +4,7 @@ node {
   checkout scm
   
   stage('Package') {
-      withEnv([PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"])
+      withEnv([MAVEN = "${tool 'maven-3.3.9'}/bin:${env.PATH}"])
       sh 'mvn clean package'
     
   }
