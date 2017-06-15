@@ -3,11 +3,11 @@ FROM openjdk:jdk-alpine
 RUN apk --no-cache add curl
 
 RUN addgroup -g 1000  && \
-    adduser -g 1000 -s spring-boot /bin/sh -h /spring-boot -D -G spring-boot
+    adduser -g 1000 -s spring-boot /bin/sh -h /spring_boot -D -G spring_boot spring_boot
 
-COPY target/*.jar  /spring-boot
+COPY target/*.jar  /spring_boot
 
-USER spring-boot
+USER spring_boot
 
 ENV JAVA_OPTS="-Xms1G"
 
