@@ -16,5 +16,5 @@ WORKDIR /spring_boot
 
 EXPOSE 8080
 
-CMD entrydocker.sh
+CMD /string_boot/entrydocker.sh
 

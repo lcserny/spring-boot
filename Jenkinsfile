@@ -14,7 +14,8 @@ node {
 	newApp.push()
     }
   }
-
+    
+    
 //  checkpoint 'Build image'
 
 }
