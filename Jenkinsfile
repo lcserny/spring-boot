@@ -2,7 +2,6 @@
 node {
 
   checkout scm
-#  env.PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"
   
   stage('Package') {
       withEnv([PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"])
