@@ -8,7 +8,7 @@ node {
     
   }
   stage('Create Docker Image') {
-    docker.withRegistry('sniffer.netex.ro:5000') {
+    docker.withRegistry('http://sniffer.netex.ro:5000') {
         def newApp = docker.build("docker-jenkins-pipeline:${env.BUILD_NUMBER}")
 	newApp.push()
     }
