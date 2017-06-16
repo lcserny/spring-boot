@@ -14,36 +14,36 @@ node {
 
     container_name = "docker-jenkins-pipeline"
        
-    def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
+    new_container = docker.build("${container_name}:${env.BUILD_TAG}")
 
 	
 
   }
     
 
-//  checkpoint 'The Image has been build'
+  checkpoint 'The Image has been build'
 
 
-//  stage('Test Running Docker Image') {
+  stage('Test Running Docker Image') {
 
 	
-//    docker.image(new_container).withRun("--name = ${container_name} -p 8081:8080 " ) { c ->
+    docker.image(new_container).withRun("--name = ${container_name} -p 8081:8080 " ) { c ->
 
-//    waitUntil {
+    waitUntil {
 		
-//      sleep 10 SECONDS
-//      sh 'docker  --format="{{ .State.Running }}" ${container_name} > /tmp/result_value' 
-//      result_value = readFile '/tmp/result_value'
+      sleep 10 SECONDS
+      sh 'docker  --format="{{ .State.Running }}" ${container_name} > /tmp/result_value' 
+      result_value = readFile '/tmp/result_value'
     
-//      echo "Docker container running status is (${result_value})"
+      echo "Docker container running status is (${result_value})"
 
-//      sh 'rm -rf /tmp/result_value'
+      sh 'rm -rf /tmp/result_value'
 
-//      return ${result_value}
+      return ${result_value}
 		
-//      }
-//    }
-//  }
+      }
+    }
+  }
     
   stage('Push Docker Image') {
 
