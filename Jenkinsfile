@@ -35,7 +35,7 @@ node {
       sh 'docker  --format="{{ .State.Running }}" ${container_name} > /tmp/result_value' 
       result_value = readFile '/tmp/result_value'
     
-      echo "Docker container running status is (${result_value})"
+//      echo "Docker container running status is (${result_value})"
 
       sh 'rm -rf /tmp/result_value'
 
