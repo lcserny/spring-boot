@@ -12,7 +12,7 @@ node {
   }
   stage('Create Docker Image') {
 
-    container_name = docker-jenkins-pipeline
+    container_name = "docker-jenkins-pipeline"
        
     def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
 
