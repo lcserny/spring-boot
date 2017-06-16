@@ -13,9 +13,11 @@ node {
 
   stage('Create Docker Image') {
 
-    docker.withRegistry('http://sniffer.netex.ro:5000') {
+    container_name = "docker-jenkins-pipeline"
+    docker-registry = "sniffer.netex.ro:5000"
 
-	container_name = "docker-jenkins-pipeline"    
+    docker.withRegistry("http://${docker-registry}") {
+
 
 	def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
     
@@ -62,7 +64,19 @@ node {
 
 	    }
 
-	    echo "new_container.imageName()"
+	    try {
+	        sh "docker rmi ${docker-registry}${container_name}:${env.BUILD_TAG}"
+		
+	    } catch ( e ) {
+		echo "Unable to removeiimage ${docker-registry}${container_name}:${env.BUILD_TAG}"
+		throw e
+
+	    } finally {
+		echo "Docker image ${docker-registry}${container_name}:${env.BUILD_TAG} has been removed"
+
+	    }
+
+
 	}	  
    }
  }
