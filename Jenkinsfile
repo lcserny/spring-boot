@@ -51,7 +51,7 @@ node {
     docker.withRegistry('http://sniffer.netex.ro:5000') {
 	new_container.push()
     }
-
+  }
 }
 
 
