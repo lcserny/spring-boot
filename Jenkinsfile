@@ -7,7 +7,7 @@ node {
 
     withEnv(['M2_HOME = /root/.m2/repository']) {  
       sh 'mvn -N io.takari:maven:wrapper'
-      sh 'mvn clean package'
+      sh './mvnw clean package'
       }
 
   }
