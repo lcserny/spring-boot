@@ -46,9 +46,19 @@ node {
       }
     }
 	stage('Push Docker Image') {
-        new_container.push()
+    	    new_container.push()
     }
-      
+	stage('Remove Docker Image') {
+	
+	    try {
+	        sh "docker rmi ${container_name}:${env.BUILD_TAG}"
+	    } cache(e){
+		echo "Unable to remove image ${container_name}:${env.BUILD_TAG}"
+		throw e
+	    } finally {
+		echo "Docker image ${container_name}:${env.BUILD_TAG} has been removed"
+		}
+    }	  
    }
  }
 }
