@@ -65,14 +65,14 @@ node {
 	    }
 
 	    try {
-	        sh "docker rmi ${docker_registry}${container_name}:${env.BUILD_TAG}"
+	        sh "docker rmi ${docker_registry}/${container_name}:${env.BUILD_TAG}"
 		
 	    } catch ( e ) {
-		echo "Unable to removeiimage ${docker_registry}${container_name}:${env.BUILD_TAG}"
+		echo "Unable to removei image ${docker_registry}/${container_name}:${env.BUILD_TAG}"
 		throw e
 
 	    } finally {
-		echo "Docker image ${docker_registry}${container_name}:${env.BUILD_TAG} has been removed"
+		echo "Docker image ${docker_registry}/${container_name}:${env.BUILD_TAG} has been removed"
 
 	    }
 
