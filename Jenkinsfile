@@ -78,7 +78,12 @@ node {
 
 
 	}	  
+     }
    }
+	stage "Cleanup"{
+
+        deleteDir()
+
  }
 }
 
