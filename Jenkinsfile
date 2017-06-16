@@ -21,7 +21,7 @@ node {
   }
     
 
-  checkpoint 'The Image has been build'
+//  checkpoint 'The Image has been build'
 
 
   stage('Test Running Docker Image') {
