@@ -17,7 +17,7 @@ node {
 
 	container_name = "docker-jenkins-pipeline"    
 
-	new_container = docker.build("${container_name}:${env.BUILD_TAG}")
+	def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
     
 	stage('Test Running Docker Image') {
 
@@ -29,7 +29,7 @@ node {
     	  sh "docker inspect --format='{{ .State.Running }}' ${container_name} > /tmp/result_value"
     	  result_value = readFile '/tmp/result_value'
     
-          echo "Docker container running status is (${result_value})"
+          echo "Docker container running status is ${result_value}"
 
 	  sh 'rm -rf /tmp/result_value'
 
