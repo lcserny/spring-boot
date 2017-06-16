@@ -38,12 +38,12 @@ node {
 
 	}
     }
-	stage('Push Docker Image') {
-        new_container.push()
-    }
-      }
+//	stage('Push Docker Image') {
+//        new_container.push()
+//    }
+      
    }
  }
-
+}
 
 
