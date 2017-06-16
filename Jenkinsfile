@@ -33,7 +33,7 @@ node {
 
 	  sh 'rm -rf /tmp/result_value'
 
-    	  return ${result_value}
+    	  return true
 	    }
 
 	}
