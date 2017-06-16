@@ -82,8 +82,14 @@ node {
    }
 	stage ('Cleanup'){
 
-        deleteDir()
-
+        try {
+	    deleteDir()
+	} catch (e) {
+	    echo "Unable to remove curent folder"
+	    throw e
+	} finally {
+	    echo "Curent folder has been removed"
+	}
  }
 }
 
