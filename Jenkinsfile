@@ -19,7 +19,9 @@ node {
 
 	new_container = docker.build("${container_name}:${env.BUILD_TAG}")
     
-	stage('Test Running Docker Image') 
+	stage('Test Running Docker Image') {
+
+	sleep 2 SECONDS
 	docker.image("${container_name}:${env.BUILD_TAG}").withRun("--name = ${container_name} -p 8081:8080 " ) { c ->
 
         waitUntil {
@@ -35,10 +37,10 @@ node {
     	  return ${result_value}
 	    }
 	}
-
-	stage('Push Docker Image') 
+    }
+	stage('Push Docker Image') {
         new_container.push()
-	
+    }
       }
    }
  }
