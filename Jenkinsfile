@@ -32,13 +32,20 @@ node {
     waitUntil {
 		
       sleep 10 SECONDS
-      return sh 'docker  --format="{{ .State.Running }}" ${container_name}'
-
+	try{
+	    sh 'docker  --format="{{ .State.Running }}" ${container_name}'
 	}
-	
-    
+	cache(err){
+	    echo "Container is not running! Failed ${err}"
+	    return false
+	}
+	finally{
+	    echo "Container is running"
+	    return true
+	}
+		
+      }
     }
-
   }
     
   stage('Push Docker Image') {
