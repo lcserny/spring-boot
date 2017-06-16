@@ -6,7 +6,8 @@ node {
   stage('Package') {
 
     withEnv(['M2_HOME = /root/.m2/repository']) {  
-      sh './mvnw clean package'
+      sh 'mvn -N io.takari:maven:wrapper'
+      sh 'mvn clean package'
       }
 
   }
