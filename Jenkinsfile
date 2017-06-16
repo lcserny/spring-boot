@@ -5,17 +5,48 @@ node {
   env.PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"
   stage('Package') {
 
+    withEnv(['M2_HOME = /root/.m2/repository']) {  
       sh 'mvn clean package'
-    
+      }
+
   }
   stage('Create Docker Image') {
-    docker.withRegistry('http://sniffer.netex.ro:5000') {
-        def newApp = docker.build("docker-jenkins-pipeline:${env.BUILD_TAG}")
-	newApp.push()
-    }
+
+    container_name = docker-jenkins-pipeline
+       
+    def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
+
+	
+
   }
     
+
+  checkpoint 'The Image has been build'
+
+
+  stage('Test Running Docker Image') {
+
+	
+    docker.image(new_container).withRun("--name = ${container_name} -p 8081:8080 " ) { c ->
+
+    waitUntil {
+		
+      sleep 10 SECONDS
+      return sh 'docker  --format="{{ .State.Running }}" ${container_name}'
+
+	}
+	
     
-//  checkpoint 'Build image'
+    }
+
+  }
+    
+  stage('Push Docker Image') {
+
+    docker.withRegistry('http://sniffer.netex.ro:5000') {
+	new_container.push()
+    }
 
 }
+
+
