@@ -32,15 +32,15 @@ node {
           echo "Docker container running status is ${result_value}"
 
 	  sh 'rm -rf /tmp/result_value'
-
-    	  return true
+	  
+    	  return "${result_value}"
 	    }
 
 	}
     }
-//	stage('Push Docker Image') {
-//        new_container.push()
-//    }
+	stage('Push Docker Image') {
+        new_container.push()
+    }
       
    }
  }
