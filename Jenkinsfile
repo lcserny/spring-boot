@@ -52,12 +52,11 @@ node {
 	
 	    try {
 	        sh "docker rmi ${container_name}:${env.BUILD_TAG}"
+		echo "Docker image ${container_name}:${env.BUILD_TAG} has been removed"
 	    } cache(e){
 		echo "Unable to remove image ${container_name}:${env.BUILD_TAG}"
 		throw e
-	    } finally {
-		echo "Docker image ${container_name}:${env.BUILD_TAG} has been removed"
-		}
+	    } 
     }	  
    }
  }
