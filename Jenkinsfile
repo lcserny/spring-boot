@@ -30,18 +30,17 @@ node {
     
           echo "Docker container running status is ${result_value}"
 
-//	  if ("${result_value}" == true)
-//  	   {
-//      		echo "Container ${container_name} is running"
-//		sh 'rm -rf /tmp/result_value'
-//	        return true
-//  	   }
-//  	   else
-//  	   {
-//      		echo "Container ${container_name} is NOT running"
-//      		return false
-//  	    }
-	  return "true".equals(${result_value}) || "false".equals(${result_value});
+	  if ("${result_value}" != true)
+  	   {
+          	echo "Container ${container_name} is running"
+		sh 'rm -rf /tmp/result_value'
+	        return true
+  	   }
+  	   else
+  	   {
+          	echo "Container ${container_name} is NOT running"
+          	return false
+  	    }
 	}
 
       }
