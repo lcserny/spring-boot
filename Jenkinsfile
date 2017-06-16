@@ -21,7 +21,7 @@ node {
     
 	stage('Test Running Docker Image') {
 
-	docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 " ) { c ->
+	docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 -name ${container_name}" ) { c ->
 
         waitUntil {
     		
