@@ -35,6 +35,8 @@ node {
 
     	  return ${result_value}
 	    }
+
+	echo ${result_value}
 	}
     }
 	stage('Push Docker Image') {
