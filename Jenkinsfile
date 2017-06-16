@@ -30,7 +30,7 @@ node {
     
           echo "Docker container running status is ${result_value}"
 
-	  if ("${result_value}" == "true")
+	  if ("${result_value}" == true)
   	   {
       		echo "Container ${container_name} is running"
 		sh 'rm -rf /tmp/result_value'
