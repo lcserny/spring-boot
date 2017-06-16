@@ -34,14 +34,12 @@ node {
       sleep 10 SECONDS
 	try{
 	    sh 'docker  --format="{{ .State.Running }}" ${container_name}'
+	    echo "Container is running"
+	    return true
 	}
 	cache(err){
 	    echo "Container is not running! Failed ${err}"
 	    return false
-	}
-	finally{
-	    echo "Container is running"
-	    return true
 	}
 		
       }
