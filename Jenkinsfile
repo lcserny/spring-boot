@@ -19,7 +19,7 @@ node {
 
 	def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
     
-	stage('Test Running Docker Image') {
+	stage('Testing Docker Image') {
 
 	docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 --name ${container_name}" ) { c ->
 
@@ -52,11 +52,17 @@ node {
 	
 	    try {
 	        sh "docker rmi ${container_name}:${env.BUILD_TAG}"
-		echo "Docker image ${container_name}:${env.BUILD_TAG} has been removed"
+		
 	    } catch ( e ) {
 		echo "Unable to remove image ${container_name}:${env.BUILD_TAG}"
 		throw e
-	    } 
+
+	    } finally {
+		echo "Docker image ${container_name}:${env.BUILD_TAG} has been removed"
+
+	    }
+
+	    echo "new_container.imageName()"
 	}	  
    }
  }
