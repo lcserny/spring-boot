@@ -32,13 +32,13 @@ node {
 
 	  if (result_value == "true")
   	   {
-          	echo "Container ${container_name} is running"
+          	echo "Container ${container_name} is running the value is ${result_value}"
 		sh 'rm -rf /tmp/result_value'
 	        return true
   	   }
   	   else
   	   {
-          	echo "Container ${container_name} is NOT running"
+          	echo "Container ${container_name} is NOT running the value is ${result_value}"
           	return false
   	    }
 	}
