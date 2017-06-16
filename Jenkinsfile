@@ -32,15 +32,14 @@ node {
     waitUntil {
 		
       sleep 10 SECONDS
-	try{
-	    sh 'docker  --format="{{ .State.Running }}" ${container_name}'
-	    echo "Container is running"
-	    return true
-	}
-	cache(err){
-	    echo "Container is not running! Failed ${err}"
-	    return false
-	}
+      sh 'docker  --format="{{ .State.Running }}" ${container_name} > /tmp/result_value' 
+      result_value = readFile '/tmp/result_value'
+    
+      echo "Docker container running status is (${result_value})"
+
+      sh 'rm -rf /tmp/result_value'
+
+      return ${result_value}
 		
       }
     }
