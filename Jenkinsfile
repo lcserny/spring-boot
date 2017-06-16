@@ -21,12 +21,12 @@ node {
     
 	stage('Test Running Docker Image') {
 
-	sleep 2 SECONDS
+	sleep 2 
 	docker.image("${container_name}:${env.BUILD_TAG}").withRun("--name = ${container_name} -p 8081:8080 " ) { c ->
 
         waitUntil {
     		
-	  sleep 10 SECONDS
+	  sleep 10 
     	  sh 'docker  --format="{{ .State.Running }}" ${container_name} > /tmp/result_value' 
     	  result_value = readFile '/tmp/result_value'
     
