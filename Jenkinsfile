@@ -25,9 +25,8 @@ node {
 
         waitUntil {
     		
-	  sleep 10 
     	  sh "docker inspect --format='{{ .State.Running }}' ${container_name} > /tmp/result_value"
-    	  result_value = readFile '/tmp/result_value'
+    	  def result_value = readFile '/tmp/result_value'
     
           echo "Docker container running status is ${result_value}"
 
@@ -36,7 +35,7 @@ node {
 	   if ("${result_value}" == "true")
   	   {
       		echo "Container ${container_name} is running"
-	        return true	
+	        return true
   	   }
   	   else
   	   {
