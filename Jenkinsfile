@@ -80,7 +80,7 @@ node {
 	}	  
      }
    }
-	stage "Cleanup"{
+	stage ('Cleanup'){
 
         deleteDir()
 
