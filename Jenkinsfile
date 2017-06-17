@@ -45,7 +45,7 @@ node {
 
 	    }
 	    }
-	    input message: "Does tests looks good? ", ok: "Push the image!"
+//	    input message: "Does tests looks good? ", ok: "Push the image!"
 	    stage('Push Docker Image') {
     		new_container.push()
 	    }
