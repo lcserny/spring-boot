@@ -14,7 +14,7 @@ node {
 
   stage('Create Docker Image') {
 
-    withEnv(['container_name = "docker-jenkins-pipeline"','docker_registry = "sniffer.netex.ro:5000"']){ 
+    withEnv(['docker_registry = "sniffer.netex.ro:5000"','container_name = "docker-jenkins-pipeline"']){ 
         docker.withRegistry("http://${docker_registry}") {
 
 
