@@ -5,7 +5,7 @@ node {
   env.PATH = "${tool 'maven-3.3.9'}/bin:${env.PATH}"
   stage('Package') {
 
-    withEnv(['M2_HOME=/root/.m2/repository']) {  
+    withEnv(['M2_HOME = /root/.m2/repository']) {  
       sh 'mvn -N io.takari:maven:wrapper'
       sh './mvnw clean package'
       }
