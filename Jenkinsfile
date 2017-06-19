@@ -83,7 +83,7 @@ node {
 		    
 		    withCredentials([[$class: "FileBinding", credentialsId: 'kubeconfig', variable: 'KUBE_CONFIG']]) {
 		
-			def kubectl = "kubectl  --kubeconfig=\$KUBE_CONFIG
+			def kubectl = "kubectl  --kubeconfig=\$KUBE_CONFIG"
 			sh "${kubectl} set image deployment/jenkins-pipeline jenkins-pipeline=${docker_registry}/${container_name}:${env.BUILD_TAG}"
 			sh "${kubectl} rollout status deployment/grpc-demo"
 		    
