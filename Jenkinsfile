@@ -77,6 +77,12 @@ node {
 
 	    }
 	    }
+	    stage "Deploying"{
+	    
+	    withKubernetes(serverUrl:"https:172.17.2.28:6443", credentialsId:"kube-api"){
+		sh 'kubectl set image deployment/jenkins-pipeline jenkins-pipeline=${docker_registry}/${container_name}:${env.BUILD_TAG}'
+		}
+	    }
         }
    }
 	stage ('Cleanup'){
