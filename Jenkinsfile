@@ -45,7 +45,7 @@ node {
 
 	    }
 	    }
-//	    input message: "Does tests looks good? ", ok: "Push the image!"
+	    
 	    stage('Push Docker Image') {
     		new_container.push()
 	    }
@@ -77,6 +77,7 @@ node {
 
 	    }
 	    }
+	    input message: "Does tests looks good? "
 	    stage ('Deploying'){
 
 		docker.image('lachlanevenson/k8s-kubectl:v1.5.2').inside {
