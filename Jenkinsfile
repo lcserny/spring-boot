@@ -80,7 +80,7 @@ node {
 	    
 	    stage ('Deploying'){
 
-		input message:'Prrove deployment to PRODUCTION?'
+		input 'Approve deployment to PRODUCTION?'
 		docker.image('lachlanevenson/k8s-kubectl:v1.5.2').inside {
 		    
 		    withCredentials([[$class: "FileBinding", credentialsId: 'kubeconfig', variable: 'KUBE_CONFIG']]) {
