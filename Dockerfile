@@ -7,6 +7,7 @@ RUN addgroup -g 1000 spring_boot && \
 
 COPY target/*.jar /spring_boot
 COPY entrydocker.sh /spring_boot
+COPY healthcheck.sh /spring_boot
 
 USER spring_boot
 
