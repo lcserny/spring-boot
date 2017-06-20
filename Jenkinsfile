@@ -21,30 +21,53 @@ node {
 
     	    def new_container = docker.build("${container_name}:${env.BUILD_TAG}")
     
-	    stage('Testing Docker Image') {
+	    stage('Inspect Running state Docker Image') {
 
-	    docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 --name ${container_name}" ) { c ->
+		docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 --name ${container_name}" ) { c ->
 
-	    timeout(time:1, unit:'MINUTES'){
-        	waitUntil {
+		timeout(time:1, unit:'MINUTES'){
+        	    waitUntil {
     		
-		    sh "docker inspect --format='{{ .State.Running }}' ${container_name} | tr -d '\n' > /tmp/result_value"
-    		    def result_value = readFile '/tmp/result_value'
+			sh "docker inspect --format='{{ .State.Running }}' ${container_name} | tr -d '\n' > /tmp/result_value"
+    			def result_value = readFile '/tmp/result_value'
     
-		    if ("${result_value}" == 'true')
-	  	    {
-          		echo "Container ${container_name} is running"
-			sh 'rm -rf /tmp/result_value'
-	    		return true
-  		    }
-  		    else
-  		    {
-          		echo "Container ${container_name} is NOT running"
-          		return false
-  		    }
+			if ("${result_value}" == 'true')
+	  		{
+          		    echo "Container ${container_name} is running"
+			    sh 'rm -rf /tmp/result_value'
+	    		    return true
+  			}
+  			else
+  			{
+          		    echo "Container ${container_name} is NOT running"
+          		    return false
+  			}
+		    }
+	        }
+	
+		stage('Inspect Running state Docker Image') {
+		
+		    timeout(time:3, unit:'MINUTES'){
+        		waitUntil {
+    		
+			    sh "docker inspect --format='{{ .State.Health.Status }}' ${container_name} | tr -d '\n' > /tmp/result_value"
+    			    def result_value = readFile '/tmp/result_health_value'
+    
+			    if ("${result_value}" == 'healthy')
+	  		    {
+          			echo "Container ${container_name} is running and healthy"
+				sh 'rm -rf /tmp/result_health_value'
+	    			return true
+  			    }
+  			    else
+  			    {
+          			echo "Container ${container_name} is running but UNHEALTHY"
+          			return false
+  			    }
+			}
+	       
+	    	    }
 		}
-	       }
-	     }
 	    }
 	    
 	    stage('Push Docker Image') {
