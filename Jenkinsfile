@@ -25,25 +25,26 @@ node {
 
 	    docker.image("${container_name}:${env.BUILD_TAG}").withRun(" -p 8081:8080 --name ${container_name}" ) { c ->
 
-            waitUntil {
+	    timeout(time:1, unit:'MINUTES'){
+        	waitUntil {
     		
-		sh "docker inspect --format='{{ .State.Running }}' ${container_name} | tr -d '\n' > /tmp/result_value"
-    		def result_value = readFile '/tmp/result_value'
+		    sh "docker inspect --format='{{ .State.Running }}' ${container_name} | tr -d '\n' > /tmp/result_value"
+    		    def result_value = readFile '/tmp/result_value'
     
-		if ("${result_value}" == 'true')
-	  	{
-          	    echo "Container ${container_name} is running"
-		    sh 'rm -rf /tmp/result_value'
-	    	    return true
-  		}
-  		else
-  		{
-          	    echo "Container ${container_name} is NOT running"
-          	    return false
-  		}
-	    }
-
-	    }
+		    if ("${result_value}" == 'true')
+	  	    {
+          		echo "Container ${container_name} is running"
+			sh 'rm -rf /tmp/result_value'
+	    		return true
+  		    }
+  		    else
+  		    {
+          		echo "Container ${container_name} is NOT running"
+          		return false
+  		    }
+		}
+	       }
+	     }
 	    }
 	    
 	    stage('Push Docker Image') {
@@ -80,13 +81,14 @@ node {
 	    
 	    stage ('Deploying'){
 
-		input 'Approve deployment to PRODUCTION?'
+		
 		docker.image('lachlanevenson/k8s-kubectl:v1.5.2').inside {
 		    
 		    withCredentials([[$class: "FileBinding", credentialsId: 'kubeconfig', variable: 'KUBE_CONFIG']]) {
 		
 			def kubectl = "kubectl  --kubeconfig=\$KUBE_CONFIG"
 			sh "${kubectl} set image deployment/jenkins-pipeline jenkins-pipeline=${docker_registry}/${container_name}:${env.BUILD_TAG}"
+			sleep 5
 			sh "${kubectl} rollout status deployment/jenkins-pipeline"
 		    
 		    }
