@@ -68,12 +68,12 @@ node {
 	       
 	    	    }
 		}
-	    
-	    
+	    }
+	}    
 	    stage('Push Docker Image') {
     		new_container.push()
 	    }
-	    
+	}    
 	    stage('Remove Docker Image') {
 	
 		try {
@@ -101,8 +101,6 @@ node {
 		}
 
 	    }
-	    }
-	    
 	    stage ('Deploying'){
 
 		
@@ -118,8 +116,10 @@ node {
 		    }
 		}
 	    }
-        }
-   }
+	}
+    }    
+        
+   
 	stage ('Cleanup'){
 
         try {
