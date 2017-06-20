@@ -45,7 +45,7 @@ node {
 		    }
 	        }
 	
-		stage('Inspect Running state Docker Image') {
+		stage('Inspect Healthy state Docker Image') {
 		
 		    timeout(time:3, unit:'MINUTES'){
         		waitUntil {
@@ -68,11 +68,12 @@ node {
 	       
 	    	    }
 		}
-	    }
+	    
 	    
 	    stage('Push Docker Image') {
     		new_container.push()
 	    }
+	    
 	    stage('Remove Docker Image') {
 	
 		try {
@@ -129,7 +130,7 @@ node {
 	} finally {
 	    echo "Curent folder has been removed"
 	}
- }
+    }
 }
 
 
