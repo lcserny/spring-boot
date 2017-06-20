@@ -50,7 +50,7 @@ node {
 		    timeout(time:3, unit:'MINUTES'){
         		waitUntil {
     		
-			    sh "docker inspect --format='{{ .State.Health.Status }}' ${container_name} | tr -d '\n' > /tmp/result_value"
+			    sh "docker inspect --format='{{ .State.Health.Status }}' ${container_name} | tr -d '\n' > /tmp/result_health_value"
     			    def result_value = readFile '/tmp/result_health_value'
     
 			    if ("${result_value}" == 'healthy')
