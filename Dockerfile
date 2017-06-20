@@ -19,4 +19,4 @@ EXPOSE 8080
 
 CMD /spring_boot/entrydocker.sh
 
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD /spring-boot/healthcheck.sh 2>&1
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD /spring_boot/healthcheck.sh 2>&1
