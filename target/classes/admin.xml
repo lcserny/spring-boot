@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <item>
+        <label>Home</label>
+        <action>/admin/index</action>
+        <items>
+            <item>
+                <label>Inner Home</label>
+                <action>/admin/index</action>
+                <items>
+                    <item>
+                        <label>Inside home</label>
+                        <action>/admin/index/inner</action>
+                        <items>
+                            <item>
+                                <label>Deep inside</label>
+                                <action>/admin/index/inner/deep</action>
+                            </item>
+                        </items>
+                    </item>
+                    <item>
+                        <label>Inside another home</label>
+                        <action>/admin/index/another</action>
+                    </item>
+                </items>
+            </item>
+        </items>
+    </item>
+
+    <item>
+        <label>Product</label>
+        <action>/admin/product</action>
+        <items>
+            <item>
+                <label>All Products</label>
+                <action>/admin/product</action>
+            </item>
+            <item>
+                <label>Import Products</label>
+                <action>/admin/import-products</action>
+            </item>
+        </items>
+    </item>
+</menu>
