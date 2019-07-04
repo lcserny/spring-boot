@@ -23,6 +23,7 @@ node("!master") {
 //    stage("Run container on server") {
 //        def dockerRun = docker run -p 8080:8080 -d --name my-spring-boot spring-boot-poc:1.0.0
 //        sshagent(install this plugin stuff) {
+//            docker stop current running container
 //            sh label: "", script: "ssh -o StrictHostKeyChecking=no someuser@192.168.1.1 ${dockerRun}"
 //        }
 //    }
